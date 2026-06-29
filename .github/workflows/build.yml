@@ -30,11 +30,16 @@ jobs:
       - name: Init Flutter project
         run: flutter create --org com.resitkurt --project-name ai_code_reviewer .
 
+      - name: Fix asset directories
+        run: mkdir -p assets/images assets/icons && touch assets/images/.gitkeep assets/icons/.gitkeep
+
+      - name: Fix Kotlin version
+        run: |
+          sed -i 's/kotlin_version = .*/kotlin_version = "1.9.0"/' android/build.gradle
+          sed -i 's/org.jetbrains.kotlin:kotlin-stdlib.*:/org.jetbrains.kotlin:kotlin-stdlib:1.9.0/' android/build.gradle
+
       - name: Flutter pub get
         run: flutter pub get
-
-      - name: Analyze
-        run: flutter analyze --no-pub || true
 
       - name: Build APK
         run: flutter build apk --release --split-per-abi
@@ -53,14 +58,14 @@ jobs:
           generate_release_notes: true
           body: |
             ## AI Code Reviewer v1.0.0
-            
-            Yeni özellikler:
+
+            ozellikler:
             - Groq API entegrasyonu
-            - Kod fotoğrafı ile analiz
-            - 8+ dil desteği
+            - Kod fotograf ile analiz
+            - 8+ dil destegi
             - Dark mode tema
-            - Güvenli API key saklama
-            
+            - Guvenli API key saklama
+
             Kurulum:
             ```bash
             git clone https://github.com/resitkurttr/ai-code-reviewer.git
