@@ -34,7 +34,7 @@ class AiService {
       final response = await http.post(
         Uri.parse('$_baseUrl/chat/completions'),
         headers: {
-          'Authorization': 'Bearer ***,
+          'Authorization': 'Bearer $apiKey',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
@@ -157,7 +157,7 @@ Be thorough but constructive. Focus on:
       final response = await http.post(
         Uri.parse('$_baseUrl/chat/completions'),
         headers: {
-          'Authorization': 'Bearer ***,
+          'Authorization': 'Bearer $apiKey',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
