@@ -27,8 +27,14 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
 
+      - name: Init Flutter project
+        run: flutter create --org com.resitkurt --project-name ai_code_reviewer .
+
       - name: Flutter pub get
         run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-pub || true
 
       - name: Build APK
         run: flutter build apk --release --split-per-abi
@@ -45,5 +51,22 @@ jobs:
         with:
           files: build/app/outputs/flutter-apk/*-release.apk
           generate_release_notes: true
+          body: |
+            ## AI Code Reviewer v1.0.0
+            
+            Yeni özellikler:
+            - Groq API entegrasyonu
+            - Kod fotoğrafı ile analiz
+            - 8+ dil desteği
+            - Dark mode tema
+            - Güvenli API key saklama
+            
+            Kurulum:
+            ```bash
+            git clone https://github.com/resitkurttr/ai-code-reviewer.git
+            cd ai-code-reviewer
+            flutter pub get
+            flutter run
+            ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
